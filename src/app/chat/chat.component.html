@@ -2,15 +2,17 @@
     <div class="card-header">
         <ul class="nav-pills card-header-pills">
             <div class="row">
+                <div class="col-2 my-1" *ngIf="!conectado">
+                   <input type="text" [(ngModel)]="mensaje.username" class="form-control" placeholder="Tu Username..." name="username">
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-1" style="margin-right: -3%;">
-                    <button class="btn btn-success" (click)="conectar()" *ngIf="!conectado">Conectar</button>
+                    <button class="btn btn-success" (click)="conectar()" *ngIf="!conectado" [disabled]="!mensaje.username">Conectar</button>
                 </div>
                 <div class="col-3">
                     <button class="btn btn-warning" (click)="desconectar()" *ngIf="conectado">Cerrar chat</button>
                 </div>    
-            </div>
-            <div class="row">
-                           
             </div>
         </ul>
     </div>
@@ -18,7 +20,8 @@
     <ul class="list-group list-group-flush"> 
         <!--  list-group-flush quita el border de los mensajes -->
         <li class="list-group-item list-group-item-ligth" *ngFor="let mensaje of mensajes">
-           {{mensaje.fecha | date:'shortTime'}} : {{mensaje.texto}}
+          <span *ngIf="mensaje.tipo == 'NUEVO_USUARIO'"> {{mensaje.fecha | date:'shortTime'}} @ {{mensaje.texto}} {{mensaje.username}} </span>
+          <span *ngIf="mensaje.tipo == 'MENSAJE'"> {{mensaje.fecha | date:'shortTime'}} {{mensaje.username}} dice: <br> {{mensaje.texto}} </span>
         </li>
     </ul>
     </div>
