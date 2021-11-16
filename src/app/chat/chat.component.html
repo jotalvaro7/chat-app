@@ -3,10 +3,10 @@
         <ul class="nav-pills card-header-pills">
             <div class="row">
                 <div class="col-1" style="margin-right: -3%;">
-                    <button class="btn btn-success">Conectar</button>
+                    <button class="btn btn-success" (click)="conectar()" *ngIf="!conectado">Conectar</button>
                 </div>
                 <div class="col-3">
-                    <button class="btn btn-warning">Cerrar chat</button>
+                    <button class="btn btn-warning" (click)="desconectar()" *ngIf="conectado">Cerrar chat</button>
                 </div>    
             </div>
             <div class="row">
@@ -14,8 +14,8 @@
             </div>
         </ul>
     </div>
-    <div class="card-body" style="overflow-y: scroll; height: 360px;"></div>
-    <div class="card-footer">
+    <div class="card-body" style="overflow-y: scroll; height: 360px;" *ngIf="conectado"></div>
+    <div class="card-footer" *ngIf="conectado">
         <form class="form-inline">
             <div class="form-group">
                 <div class="row">
